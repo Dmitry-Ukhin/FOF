@@ -105,8 +105,8 @@ oMap.mouseDoubleClick = function (event) {
     let hexagon = document.createElement("div");
     hexagon.setAttribute("class", "hexagon");
     hexagonContainer.style.position = "absolute";
-    hexagonContainer.style.left = screenX;
-    hexagonContainer.style.top = screenY;
+    hexagonContainer.style.left = screenX+"px";
+    hexagonContainer.style.top = screenY+"px";
     hexagonContainer.appendChild(hexagon);
 
     document.body.appendChild(hexagonContainer);
