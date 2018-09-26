@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FoF-map</title>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <script src="scripts/debugger.js"></script>
+    <script src="scripts/hexMap.js"></script>
+    <link rel="stylesheet" href="stylesheets/hexagon.css">
+</head>
+<body style="
+    margin: 0px 0px 0px 0px;
+    scroll-behavior: smooth;
+    background: url('img_tiles/tile2.png');
+    width: 5000px;
+    height: 5000px;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    -webkit-user-select: none;"
+    onselectstart="return false;">
+<!--<canvas id="grid" style="z-index: 0; border: 1px solid black"></canvas>-->
+<script type="application/javascript">
+    oDebugger.bDebugMode = true;
+    oDebugger.bShowCoordinates = true;
+    console.debug("Debugger is "+(oDebugger.bDebugMode ? "on" : "off"));
+    // var canvas = document.getElementById("grid");
+    var multiplierMapSize = 10;
+    // initCanvas(canvas);
+
+    document.body.style.width = 100*multiplierMapSize;
+    document.body.style.height = 100*multiplierMapSize;
+
+    document.onmousemove = oMap.mouseMove;
+    document.onmousedown = oMap.mouseDown;
+    document.onmouseup = oMap.mouseUp;
+
+    var keys = {};
+    document.onkeydown = document.onkeyup = function(event){
+        keys[event.keyCode] = event.type === 'keydown';
+
+        if (keys[112]) {
+            oDebugger.openSettings();
+        }
+
+        return !!(keys[123] || keys[116]);
+    };
+
+    document.ondblclick = oMap.mouseDoubleClick;
+
+    function initCanvas(canvas) {
+        var ctx = canvas.getContext('2d');
+
+        ctx.canvas.width  = 60*multiplierMapSize;
+        ctx.canvas.height = 60*multiplierMapSize;
+
+        let image = new Image(100, 100);
+        image.onload = drawImageActualSize;
+        image.src = "img_tiles/tile2.png";
+
+        console.debug("canvas inited");
+    }
+
+    function drawImageActualSize() {
+        let ctx = canvas.getContext("2d");
+        let multiplier = 100;
+
+        // will draw the image as 300x227 ignoring the custom size of 60x45
+        // given in the constructor
+        for (let i = 0; i < 6; i++){
+            for (let j = 0; j < 6; j++) {
+                ctx.drawImage(this, j * multiplier, i*multiplier);
+            }
+        }
+    }
+</script>
+</body>
+</html>
